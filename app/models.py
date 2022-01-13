@@ -1,13 +1,16 @@
-from sqlalchemy import Integer, String, Column
+from sqlalchemy import Integer, String, Column, ForeignKey
 from app.database import Base
-
+from sqlalchemy.sql.sqltypes import TIMESTAMP
+from sqlalchemy.sql.expression import text
 
 class User(Base):
     __tablename__ = "user"
 
     id = Column(Integer,primary_key=True)
-    email = Column(String,nullable=False)
+    email = Column(String,nullable=False,unique=True)
     password = Column(String,nullable=True)
+    created_at = Column(TIMESTAMP(timezone=True),
+                        nullable=False, server_default=text('CURRENT_TIMESTAMP'))
 
 class About(Base):
     __tablename__ = "about"
@@ -19,6 +22,10 @@ class About(Base):
     phone = Column(String,nullable=False)
     location = Column(String,nullable=False)
     objective = Column(String,nullable=True)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
+
 
 class Education(Base):
     __tablename__ = "education"
@@ -32,6 +39,9 @@ class Education(Base):
     end_year = Column(Integer,nullable=False)
     location = Column(String,nullable=False)
     description = Column(String,nullable=True)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
 
 class Experience(Base):
     __tablename__ = "experience"
@@ -43,6 +53,9 @@ class Experience(Base):
     end_year = Column(Integer,nullable=False)
     description = Column(String,nullable=True)
     location = Column(String,nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
 
 class Skills(Base):
     __tablename__ = "skills"
@@ -50,6 +63,9 @@ class Skills(Base):
     id = Column(Integer,primary_key=True)
     skill_name = Column(String,nullable=False)
     skill_type = Column(String,nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
 
 class Projects(Base):
     __tablename__ = "projects"
@@ -58,6 +74,9 @@ class Projects(Base):
     project_name = Column(String,nullable=False)
     description = Column(String,nullable=False)
     url = Column(String,nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
 
 class Certification(Base):
     __tablename__ = "certification"
@@ -68,6 +87,9 @@ class Certification(Base):
     expire_year = Column(String,nullable=True)
     description = Column(String,nullable=True)
     url = Column(String,nullable=False)
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
 
 
 class Connect(Base):
@@ -77,4 +99,8 @@ class Connect(Base):
     connect_name = Column(String,nullable=False)
     image_url = Column(String,nullable=False)
     url = Column(String,nullable=False)   
+    user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True),
+        nullable=True,server_default=text('CURRENT_TIMESTAMP'))
+
 
