@@ -1,14 +1,14 @@
 from pydantic import BaseModel,EmailStr
+from datetime import datetime
 
-
-class UserResponse(BaseModel):
+class CreateUserResponse(BaseModel):
     id: int
     email: EmailStr
-
+    created_at: datetime
     class Config:
         orm_mode = True
     
-class Users(BaseModel):
+class CreateUser(BaseModel):
     password: str
     email: EmailStr
 
