@@ -1,9 +1,11 @@
-FROM python:3.9.7
+FROM python:3.9
 
 WORKDIR '/portfolio'
 
-COPY requirements.txt .
+COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . ./
+
+CMD ["uvicorn","app.main:app","--port","8000"]
