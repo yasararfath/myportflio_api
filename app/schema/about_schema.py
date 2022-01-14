@@ -7,9 +7,9 @@ class CreateAbout(BaseModel):
     designation: str
     email: str
     phone:str
+    website: str
     location:str
     objective: Optional[str] = ""
-    user_id : int
 
     class Config:
         orm_mode = True

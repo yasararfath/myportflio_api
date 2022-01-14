@@ -26,3 +26,11 @@ def get_about(db:Session=Depends(get_db)):
     
     return res
 
+@router.delete("/")
+def delete_about(about_id:int,db:Session=Depends(get_db)):
+    res = db.query(About).filter(id == about_id).first()
+
+    if res is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")
+    
+    return {"message":"Item deleted"}

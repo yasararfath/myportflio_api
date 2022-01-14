@@ -20,6 +20,7 @@ class About(Base):
     designation = Column(String,nullable=False)
     email = Column(String,nullable=False)
     phone = Column(String,nullable=False)
+    website = Column(String,nullable=False)
     location = Column(String,nullable=False)
     objective = Column(String,nullable=True)
     user_id = Column(Integer,ForeignKey('user.id', ondelete='CASCADE'),nullable=False)
