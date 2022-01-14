@@ -21,7 +21,7 @@ def create_about(about:CreateAbout,db:Session=Depends(get_db),current_user:int=D
     return about_data
 
 @router.get("/",status_code=status.HTTP_200_OK,response_model=List[CreateAboutResponse])
-def get_about(db:Session=Depends(get_db)):
+def get_about(db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
     res = db.query(About).all()
     if res is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")
