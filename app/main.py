@@ -17,7 +17,7 @@ models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def root():
-    return "hello"
+    return {"message":"hello"}
 
 app.include_router(auth.router)
 app.include_router(users.router)

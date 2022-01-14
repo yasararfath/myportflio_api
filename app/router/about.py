@@ -12,12 +12,12 @@ router = APIRouter(prefix='/about',
                 tags=['About'])
 
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=CreateAboutResponse)
-def create_about(about:CreateAbout,db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
+def create_about(about:CreateAbout,db:Session=Depends(get_db),current_user:str=Depends(get_current_user)):
     about_data = About(user_id=current_user.id,**about.dict())
-    res = crud.Crud.create(db,about_data)
-    # db.add(about_data)
-    # db.commit()
-    # db.refresh(about_data)
+    # res = crud.Crud.create(db,about_data)
+    db.add(about_data)
+    db.commit()
+    db.refresh(about_data)
 
     return about_data
 
