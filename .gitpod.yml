@@ -4,12 +4,12 @@
 
 tasks:
   - name: Installing poetry
-    init: pip install poetry
+    init: pip install poetry && gp sync-done bundle
   - name: Install all the dependencies
-    init: poetry env use python3
+    init: gp sync-await bundle  && poetry env use python3
     command: poetry install
-    openMode: tab-after
   - name: Run the server
+    init: gp sync-await bundle 
     command: uvicorn app.main:app --reload
   
 ports:
