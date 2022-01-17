@@ -1,4 +1,4 @@
-from fastapi import APIRouter,status,Depends
+from fastapi import APIRouter,status,Depends,HTTPException
 from app.models import About
 from app.schema.about_schema import CreateAbout,CreateAboutResponse
 from sqlalchemy.orm.session import Session
@@ -30,10 +30,13 @@ def get_about(db:Session=Depends(get_db),current_user:int=Depends(get_current_us
     return res
 
 @router.delete("/")
-def delete_about(about_id:int,db:Session=Depends(get_db)):
-    res = db.query(About).filter(id == about_id).first()
+def delete_about(about_id:int,db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
+    res = db.query(About).get(id)
 
     if res is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")
+    
+    res.delete(res)
+    res.commit()
     
     return {"message":"Item deleted"}
