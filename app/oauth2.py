@@ -25,7 +25,7 @@ def create_access_token(data:dict):
 
 def verify_access_token(token:str,credentials_exception):
     try:
-        res = jwt.decode(token, SECRET_KEY,ALGORITHM)
+        res = jwt.decode(token, SECRET_KEY,algorithms=[ALGORITHM])
         id:int = res.get("id")
         if id is None:
             raise credentials_exception
@@ -41,6 +41,6 @@ def get_current_user(token:str = Depends(oauth2_schema),db:Session=Depends(get_d
         headers={"WWW-Authenticate": "Bearer"})
 
     token = verify_access_token(token,credentials_exception)
-    user = db.query(User).filter(User.email == token.email).first()
+    user = db.query(User).filter(User.id == token.id).first()
 
     return user
