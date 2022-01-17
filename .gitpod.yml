@@ -9,7 +9,7 @@ tasks:
       pip install poetry
       poetry env use python3
       poetry install
-      uvicorn app.main:app --reload
+      poetry run uvicorn app.main:app --reload
 ports:
   - port: 8000
     onOpen: notify
