@@ -16,3 +16,4 @@ class CreateAbout(BaseModel):
 
 class CreateAboutResponse(CreateAbout):
     created_at: datetime
+    id:int

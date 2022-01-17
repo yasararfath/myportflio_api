@@ -16,7 +16,7 @@ class CreateUser(BaseModel):
         orm_mode = True
 
 class TokenData(BaseModel):
-    email:str
+    id:str
 
     class Config:
         orm_mode = True

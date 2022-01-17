@@ -8,12 +8,19 @@ from app.utils import hash_password
 router = APIRouter(prefix="/user",tags=['User'])
 
 
-@router.post("/",status_code=status.HTTP_201_CREATED,response_model=CreateUserResponse)
+@router.post("/",status_code=status.HTTP_201_CREATED,
+            #  response_model=CreateUserResponse
+             )
 def create_user(userCreate:CreateUser,db:Session=Depends(get_db)):
     userCreate.password = hash_password(userCreate.password)
     user = User(**userCreate.dict())
     db.add(user)
     db.commit()
     db.refresh(user)
-
+    # ab = user()
+    try:
+        for item in userCreate.dict():
+            print(userCreate.dict()[item])
+    except:
+        print("None")
     return user
