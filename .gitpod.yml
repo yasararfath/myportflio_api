@@ -4,12 +4,12 @@
 
 tasks:
   - name: Installing poetry
-    init: echo "Setting up the project"
+    init: echo "Seeting up the porject"
     command: |
       pip install poetry
-      poetry env use python
+      poetry env use python3
       poetry install
-      uvicorn app.main:app --reload  
+      poetry run uvicorn app.main:app --reload
 ports:
   - port: 8000
     onOpen: notify

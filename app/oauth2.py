@@ -26,10 +26,10 @@ def create_access_token(data:dict):
 def verify_access_token(token:str,credentials_exception):
     try:
         res = jwt.decode(token, SECRET_KEY,ALGORITHM)
-        email:str = res.get("email")
-        if email is None:
+        id:int = res.get("id")
+        if id is None:
             raise credentials_exception
-        token_data = TokenData(email=email)
+        token_data = TokenData(id=id)
     except:
         raise credentials_exception
 
