@@ -6,7 +6,7 @@ from app.models import About
 from app.database import get_db
 from typing import List
 from app.oauth2 import get_current_user
-from app import crud
+from app.crud import Crud
 
 router = APIRouter(prefix='/about',
                 tags=['About'])
@@ -14,12 +14,12 @@ router = APIRouter(prefix='/about',
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=CreateAboutResponse)
 def create_about(about:CreateAbout,db:Session=Depends(get_db),current_user:str=Depends(get_current_user)):
     about_data = About(user_id=current_user.id,**about.dict())
-    # res = crud.Crud.create(db,about_data)
-    db.add(about_data)
-    db.commit()
-    db.refresh(about_data)
+    res = Crud.create(db,about_data)
+    # db.add(about_data)
+    # db.commit()
+    # db.refresh(about_data)
 
-    return about_data
+    return res
 
 @router.get("/",status_code=status.HTTP_200_OK,response_model=List[CreateAboutResponse])
 def get_about(db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
