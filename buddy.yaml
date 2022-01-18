@@ -1,0 +1,38 @@
+- pipeline: "Test"
+  on: "EVENT"
+  events:
+  - type: "PUSH"
+    refs:
+    - "refs/heads/main"
+  priority: "NORMAL"
+  fail_on_prepare_env_warning: true
+  actions:
+  - action: "Execute: pytest"
+    type: "BUILD"
+    working_directory: "/buddy/myportflio-api"
+    docker_image_name: "library/python"
+    docker_image_tag: "3.10"
+    execute_commands:
+    - "python -m pip install --upgrade pip"
+    - "python -m venv venv"
+    - "source venv/bin/activate"
+    - "pip install pytest"
+    - "pip install -r requirements.txt"
+    - "pytest"
+    cached_dirs:
+    - "/root/.cache/pip"
+    volume_mappings:
+    - "/:/buddy/myportflio-api"
+    cache_base_image: true
+    shell: "BASH"
+  - action: "Build Docker image"
+    type: "DOCKERFILE"
+    dockerfile_path: "Dockerfile"
+    target_platform: "linux/amd64"
+  - action: "Run: pytest"
+    type: "RUN_DOCKER_CONTAINER"
+    use_image_from_action: true
+    inline_commands: "pytest"
+    mount_filesystem_disable: true
+    cache_base_image: true
+    shell: "SH"
