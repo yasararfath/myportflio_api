@@ -27,5 +27,5 @@
     shell: "BASH"
   - action: "Build Docker image"
     type: "DOCKERFILE"
-    dockerfile_path: "docker-compose.yml"
+    dockerfile_path: "Dockerfile"
     target_platform: "linux/amd64"
