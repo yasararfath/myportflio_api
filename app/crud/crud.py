@@ -8,8 +8,13 @@ class Crud:
 
         return row
     
-    def get_all(self,db,table):
-        res = db.query(table).all()
+    def get_all(self,db,table,id:int=-1):
+        if id ==-1:
+            res = db.query(table).all()
+        else:
+            res = db.query(table).filter(
+                table.id == id
+            ).first()
 
         if res is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")
@@ -27,15 +32,8 @@ class Crud:
         if res.id != id:
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="Not authorized to perform requested action")
-        try:
-            for key in row.dict():
-                if key != 'id':
-                    res.key = row.dict()[key]
-        except:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="Column is not here")
             
-        res_query.update(res, synchronize_session=False)
+        res_query.update(row.dict(), synchronize_session=False)
         db.commit()
         return res_query.first()
         
