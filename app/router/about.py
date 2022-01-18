@@ -4,7 +4,7 @@ from app.schema.about_schema import CreateAbout,CreateAboutResponse
 from sqlalchemy.orm.session import Session
 from app.models import About
 from app.database import get_db
-from typing import List
+from typing import Any, List
 from app.oauth2 import get_current_user
 from app.crud.crud import crud_obj
 
@@ -26,12 +26,20 @@ def get_about(db:Session=Depends(get_db),current_user:int=Depends(get_current_us
     res = crud_obj.get_all(db=db,table=About)
     # res = db.query(About).all()
     # if res is None:
-    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")
-    
+    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")  
+    return res
+
+@router.get("/{id}",status_code=status.HTTP_200_OK,response_model=CreateAboutResponse)
+def get_about(id:int,db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
+    res = crud_obj.get_all(db=db,table=About,id=id)
+    # res = db.query(About).all()
+    # if res is None:
+    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="No Data Found")  
     return res
 
 @router.put("/{about_id}")
-def edit_about(about_id:int,updated_post,db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
+def edit_about(about_id:int,updated_post:CreateAbout,db:Session=Depends(get_db),current_user:int=Depends(get_current_user)):
+
     res = crud_obj.put(db=db,table=About,id=about_id,row=updated_post)
     
     return res

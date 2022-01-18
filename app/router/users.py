@@ -9,7 +9,7 @@ router = APIRouter(prefix="/user",tags=['User'])
 
 
 @router.post("/",status_code=status.HTTP_201_CREATED,
-            #  response_model=CreateUserResponse
+             response_model=CreateUserResponse
              )
 def create_user(userCreate:CreateUser,db:Session=Depends(get_db)):
     userCreate.password = hash_password(userCreate.password)
