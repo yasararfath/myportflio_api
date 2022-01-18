@@ -29,3 +29,10 @@
     type: "DOCKERFILE"
     dockerfile_path: "Dockerfile"
     target_platform: "linux/amd64"
+  - action: "Run: pytest"
+    type: "RUN_DOCKER_CONTAINER"
+    use_image_from_action: true
+    inline_commands: "pytest"
+    mount_filesystem_disable: true
+    cache_base_image: true
+    shell: "SH"
