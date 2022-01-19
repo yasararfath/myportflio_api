@@ -36,3 +36,8 @@
     mount_filesystem_disable: true
     cache_base_image: true
     shell: "SH"
+  - action: "Push Docker image"
+    type: "DOCKER_PUSH"
+    docker_image_tag: "latest"
+    repository: "shaikhyasar460/portfolio_api"
+    integration_hash: "xWOBqnkEKQe1E7XqeJYvV0AZPX"
