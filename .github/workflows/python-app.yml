@@ -31,3 +31,7 @@ jobs:
       run: |
         source venv/bin/activate
         pytest
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.coverall_github_token }}
