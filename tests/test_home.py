@@ -5,4 +5,4 @@ def test_root():
     client = TestClient(app)
     res = client.get('/')
     assert res.status_code==200
-    assert res.json() == {"message":"hello"}
+    assert res.json() == {"message":"Check out /docs for portfolio api in Swagger UI"}

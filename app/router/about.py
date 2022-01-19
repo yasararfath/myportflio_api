@@ -19,7 +19,7 @@ def create_about(
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user),
 ):
-    about_data = About(user_id=current_user.id, **about.dict())
+    about_data = About(user_id=current_user, **about.dict())
     res = item_obj.create(db=db, row=about_data)
     return res
 

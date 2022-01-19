@@ -16,7 +16,7 @@ def create_skill(
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user),
 ):
-    skill_data = Skills(user_id=current_user.id, **skill.dict())
+    skill_data = Skills(user_id=current_user, **skill.dict())
     res = item_obj.create(db=db, row=skill_data)
     return res
 

@@ -18,7 +18,7 @@ def create_education(
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user),
 ):
-    education_data = Education(user_id=current_user.id, **education.dict())
+    education_data = Education(user_id=current_user, **education.dict())
     res = item_obj.create(db=db, row=education_data)
     return res
 

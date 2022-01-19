@@ -18,7 +18,7 @@ models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def root():
-    return {"message":"hello"}
+    return {"message":"Check out /docs for portfolio api in Swagger UI"}
 
 app.include_router(auth.router)
 app.include_router(users.router)
