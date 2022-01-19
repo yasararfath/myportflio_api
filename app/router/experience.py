@@ -18,7 +18,7 @@ def create_experience(
     db: Session = Depends(get_db),
     current_user: str = Depends(get_current_user),
 ):
-    experience_data = Experience(user_id=current_user.id, **experience.dict())
+    experience_data = Experience(user_id=current_user, **experience.dict())
     res = item_obj.create(db=db, row=experience_data)
     return res
 
