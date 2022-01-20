@@ -2,15 +2,16 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class SkillCreate(BaseModel):
-    skill_type: str
-    skill_name: str
+class ConnectCreate(BaseModel):
+    connect_name: str
+    image_url: str
+    url: str
 
     class Config:
         orm_mode = True
 
 
-class SkillResponse(SkillCreate):
+class ConnectResponse(ConnectCreate):
     id: int
     user_id: int
     created_at: datetime
