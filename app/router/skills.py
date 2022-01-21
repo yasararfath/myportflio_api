@@ -39,7 +39,7 @@ def get_skill(
     return res
 
 
-@router.put("/{about_id}", response_model=SkillResponse)
+@router.put("/{about_id}", status_code=status.HTTP_200_OK, response_model=SkillResponse)
 def edit_skill(
     skill_id: int,
     updated_content: SkillCreate,
@@ -52,7 +52,7 @@ def edit_skill(
     return res
 
 
-@router.delete("/{about_id}")
+@router.delete("/{about_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_skill(
     skill_id: int,
     db: Session = Depends(get_db),

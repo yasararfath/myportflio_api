@@ -6,6 +6,7 @@ __pycache__/
 sql_app.db
 # C extensions
 *.so
+test.db
 
 # Distribution / packaging
 __pycache__/
