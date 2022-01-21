@@ -30,6 +30,7 @@ jobs:
         run: |
           source venv/bin/activate
           pytest --cov
+          coveralls
       - name: Upload coverage data to coveralls.io
         run: |
           source venv/bin/activate
