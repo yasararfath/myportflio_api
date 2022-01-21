@@ -3,10 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 .vscode/
-sql_app.db
+./sql_app.db
 # C extensions
 *.so
-test.db
+./test.db
 
 # Distribution / packaging
 __pycache__/
